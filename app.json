@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "anime",
+    "slug": "anime",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/MyLogo2.png",
+    "splash": {
+      "image": "./app/assets/MyLogo2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "versionCode": 1,
+      "permissions": [],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/MylogoAnd.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.yusufkhan.anime"
+    },
+    "web": {
+      "favicon": "./app/assets/splash.png"
+    }
+  }
+}
