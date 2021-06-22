@@ -4,9 +4,6 @@ import { StatusBar } from "expo-status-bar";
 
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
-// Auth.
-import AuthContext from "./app/auth/authContext";
-
 // Navigation.
 import AppNavigator from "./app/routes/AppNavigator";
 
@@ -22,12 +19,10 @@ const App = () => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer theme={MyTheme}>
-        <AppNavigator />
-        <StatusBar style="auto" />
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <NavigationContainer theme={MyTheme}>
+      <AppNavigator />
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 };
 
