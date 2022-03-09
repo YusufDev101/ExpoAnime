@@ -24,13 +24,14 @@ const DrawerNavigator = () => {
       }}
       drawerContent={(props) => <AppDrawerContent {...props} />}
       screenOptions={({ route }) => ({
+        headerShown: false,
         drawerIcon: ({ focused, color, size }) => {
-        	let iconName;
-					if (route.name === "Home") {
-						iconName = "home-circle";
-					} else if (route.name === "About") {
-						iconName = "information-outline";
-					}
+          let iconName;
+          if (route.name === "Home") {
+            iconName = "home-circle";
+          } else if (route.name === "About") {
+            iconName = "information-outline";
+          }
 
           // You can return any component that you like here!
           return (
@@ -44,13 +45,11 @@ const DrawerNavigator = () => {
   );
 };
 
-
 const AppNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName="Startup"
       screenOptions={{
-        headerMode: "none",
         headerShown: false,
       }}
     >
@@ -67,10 +66,9 @@ const AppNavigator = () => {
         options={{
           headerShown: false,
         }}
-      />  
-			</Stack.Navigator>
+      />
+    </Stack.Navigator>
   );
 };
-
 
 export default AppNavigator;

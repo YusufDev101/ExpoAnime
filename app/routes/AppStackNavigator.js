@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 
 // Screens.
 import StackNavigator from "../screens/Home/index";
-import Detail from '../screens/About/Detail'
+import Detail from "../screens/About/Detail";
 
 import AboutTabNavigator from "../screens/About/";
 
@@ -49,7 +49,7 @@ const HomeStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitleAlign: "center",
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -68,21 +68,32 @@ const HomeStack = () => {
 const AboutStack = () => {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerTitleAlign: "center",
-      }}
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        backBehavior: "none",
+        animationEnabled: true,
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "gray",
+        tabBarStyle: {
+          backgroundColor: "#282ac4",
+          position: "absolute",
+          width: Dimensions.get("window").width,
+          height: 50,
+        },
+      })}
     >
       <Stack.Screen
         name="AboutProfile"
         component={AboutTabNavigator}
-        options={{
+        screenOptions={{
           headerShown: false,
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Detail"
         component={Detail}
-        options={{
+        screenOptions={{
           headerShown: false,
         }}
       />
