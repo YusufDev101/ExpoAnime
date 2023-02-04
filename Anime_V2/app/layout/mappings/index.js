@@ -24,6 +24,7 @@ const StackNavigation = () => {
     >
       <Stack.Screen name="homeScreen" component={Home} />
       <Stack.Screen name="detailsScreen" component={Details} />
+      <Stack.Screen name="searchScreen" component={Search} />
     </Stack.Navigator>
   );
 };
