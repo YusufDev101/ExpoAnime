@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  Dimensions,
   StyleSheet,
   TextInput,
   View,
@@ -20,6 +21,9 @@ import api from "../../utils/api";
 const Home = ({ navigation }) => {
   const [jsonData, setJsonData] = useState([]);
   const [animeSchedule, setAnimeSchedule] = useState([]);
+
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
 
   useEffect(() => {
     GetAnime();
@@ -88,23 +92,23 @@ const Home = ({ navigation }) => {
         style={{
           position: "absolute",
           right: 10,
-          width: 200,
-          height: 250,
+          width: windowWidth / 2.1,
+          height: windowHeight / 3.3,
           zIndex: 20,
           resizeMode: "stretch",
-          marginTop: 20,
+          marginTop: 40,
         }}
         source={require("../../assets/Sword-Art-Anime-PNG-Images.png")}
       />
 
       <View
         style={{
-          height: 160,
+          height: windowHeight / 4.8,
           width: "90%",
           elevation: 8,
           shadowColor: "black",
           marginLeft: 20,
-          marginTop: 20,
+          marginTop: 40,
           marginBottom: 10,
           borderRadius: 10,
           overflow: "hidden",
@@ -136,119 +140,6 @@ const Home = ({ navigation }) => {
           <View style={{ flex: 1 }}></View>
         </View>
       </View>
-
-      <Text
-        style={{
-          marginTop: 0,
-          marginLeft: 20,
-          fontSize: 16,
-        }}
-      >
-        Types
-      </Text>
-
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginBottom: 20,
-          marginLeft: 20,
-          marginRight: 30,
-        }}
-      >
-        <View
-          style={{
-            width: 70,
-            height: 23,
-            borderColor: "dodgerblue",
-            borderWidth: 1,
-            marginTop: 10,
-            borderRadius: 15,
-            justifyContent: "center",
-            backgroundColor: "white",
-            elevation: 4,
-          }}
-        >
-          <Text style={{ alignSelf: "center", color: "dodgerblue" }}>
-            Hello
-          </Text>
-        </View>
-        <View
-          style={{
-            width: 70,
-            height: 23,
-            borderColor: "dodgerblue",
-            borderWidth: 1,
-            marginLeft: 20,
-            marginTop: 10,
-            borderRadius: 15,
-            justifyContent: "center",
-            backgroundColor: "white",
-            elevation: 4,
-          }}
-        >
-          <Text style={{ alignSelf: "center", color: "dodgerblue" }}>
-            Hello
-          </Text>
-        </View>
-        <View
-          style={{
-            width: 70,
-            height: 23,
-            borderColor: "dodgerblue",
-            borderWidth: 1,
-            marginLeft: 20,
-            marginTop: 10,
-            borderRadius: 15,
-            justifyContent: "center",
-            backgroundColor: "white",
-            elevation: 4,
-          }}
-        >
-          <Text style={{ alignSelf: "center", color: "dodgerblue" }}>
-            Hello
-          </Text>
-        </View>
-        <View
-          style={{
-            width: 70,
-            height: 23,
-            borderColor: "dodgerblue",
-            borderWidth: 1,
-            marginLeft: 20,
-            marginTop: 10,
-            borderRadius: 15,
-            justifyContent: "center",
-            backgroundColor: "white",
-            elevation: 4,
-          }}
-        >
-          <Text style={{ alignSelf: "center", color: "dodgerblue" }}>
-            Hello
-          </Text>
-        </View>
-        <View
-          style={{
-            width: 70,
-            height: 23,
-            borderColor: "dodgerblue",
-            borderWidth: 1,
-            marginLeft: 20,
-            marginTop: 10,
-            borderRadius: 15,
-            justifyContent: "center",
-            backgroundColor: "white",
-            elevation: 4,
-          }}
-        >
-          <Text style={{ alignSelf: "center", color: "dodgerblue" }}>
-            Hello
-          </Text>
-        </View>
-      </ScrollView>
 
       <View style={{ flexDirection: "row" }}>
         <Text
@@ -288,15 +179,24 @@ const Home = ({ navigation }) => {
                 padding: 20,
                 marginVertical: 8,
                 marginHorizontal: 10,
-                height: 170,
-                width: 130,
+                height: windowHeight / 4.4,
+                width: windowWidth / 2.9,
                 borderRadius: 10,
                 elevation: 5,
                 overflow: "hidden",
               }}
             ></Image>
-            <Text style={{ fontSize: 10, marginLeft: 10, marginBottom: 10 }}>
-              {item.title_english}
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              maxLength={8}
+              style={{ fontSize: 10, marginLeft: 10, marginBottom: 10 }}
+            >
+              {item.title != null
+                ? item.title.length > 20
+                  ? item.title.substring(0, 20) + "..."
+                  : item.title
+                : item.title}
             </Text>
           </TouchableOpacity>
         )}
@@ -308,7 +208,7 @@ const Home = ({ navigation }) => {
           style={{
             marginLeft: 20,
             fontSize: 16,
-            marginTop: 7,
+            marginTop: 20,
           }}
         >
           Today's Releases
@@ -341,14 +241,25 @@ const Home = ({ navigation }) => {
                 padding: 20,
                 marginVertical: 8,
                 marginHorizontal: 10,
-                height: 130,
-                width: 240,
+                height: windowHeight / 5.5,
+                width: windowWidth / 1.7,
                 borderRadius: 10,
                 elevation: 5,
                 overflow: "hidden",
               }}
             ></Image>
-            <Text>{item.title_english}</Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              maxLength={8}
+              style={{ fontSize: 10, marginLeft: 10, marginBottom: 10 }}
+            >
+              {item.title != null
+                ? item.title.length > 20
+                  ? item.title.substring(0, 20) + "..."
+                  : item.title
+                : item.title}
+            </Text>
           </View>
         )}
         keyExtractor={(item) => item.mal_id}

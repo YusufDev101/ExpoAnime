@@ -40,7 +40,6 @@ const GetListAnime = async (id) => {
     let res = await axios.get(
       "https://api.jikan.moe/v4/anime?q=fairy tail&sfw"
     );
-
     let data = res.data;
     return data;
   } catch (error) {

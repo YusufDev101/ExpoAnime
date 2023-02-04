@@ -1,25 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, TextInput, View, FlatList, Text } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  TextInput,
+  View,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  Keyboard,
+  Image,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 // Icons.
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
-const Search = () => {
-  const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "First Item",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Second Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Third Item",
-    },
-  ];
+// API
+import api from "../../utils/api";
+
+const Search = ({ navigation }) => {
+  const [searchText, setSearchText] = useState("");
+  const [jsonData, setJsonData] = useState([]);
+
+  const windowWidth = Dimensions.get("window").width;
+  const windowHeight = Dimensions.get("window").height;
+
+  const SearchData = async () => {
+    try {
+      Keyboard.dismiss();
+      var value = await api.GetListAnime(searchText);
+
+      setJsonData(value);
+    } catch (error) {}
+  };
+
+  const setValue = (event) => {
+    setSearchText(event);
+  };
+
+  const GoToForm = (item) => {
+    try {
+      navigation.navigate("detailsScreen", {
+        data: item,
+      });
+    } catch (error) {}
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,25 +69,50 @@ const Search = () => {
         />
         <TextInput
           placeholder="search here"
-          style={{ width: "80%", marginLeft: 10 }}
+          keyboardType="default"
+          returnKeyType="done"
+          autoFocus={true}
+          clearButtonMode="while-editing"
+          style={{ width: "78%", marginLeft: 10 }}
+          value={searchText}
+          onChangeText={(event) => setValue(event)}
         ></TextInput>
+        <TouchableOpacity onPress={() => SearchData()}>
+          <Ionicons
+            name="arrow-forward"
+            size={24}
+            color="black"
+            style={{ alignSelf: "center", marginRight: 20, marginTop: 5 }}
+          />
+        </TouchableOpacity>
       </View>
 
       <FlatList
-        data={DATA}
+        numColumns={2}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        data={jsonData.data}
+        style={{ marginBottom: 100 }}
         renderItem={({ item }) => (
-          <View
-            style={{
-              backgroundColor: "#f9c2ff",
-              padding: 20,
-              marginVertical: 8,
-              marginHorizontal: 16,
-            }}
-          >
-            <Text style={{ fontSize: 32 }}>{item.title}</Text>
-          </View>
+          <TouchableOpacity onPress={() => GoToForm(item)}>
+            <Image
+              source={{ uri: item.images.jpg.large_image_url }}
+              resizeMode="stretch"
+              style={{
+                backgroundColor: "#f9c2ff",
+                padding: 20,
+                marginVertical: 8,
+                marginHorizontal: 10,
+                height: windowHeight / 4.2,
+                width: windowWidth / 2.5,
+                borderRadius: 10,
+                elevation: 5,
+                overflow: "hidden",
+              }}
+            ></Image>
+          </TouchableOpacity>
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.mal_id}
       />
     </SafeAreaView>
   );
